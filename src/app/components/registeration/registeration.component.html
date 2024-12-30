@@ -1,0 +1,115 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <section class="bg-white p-6 shadow-md w-1/3 rounded-lg">
+        <form class="p-4 mx-auto" [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
+            <h1 class="text-2xl font-bold mb-4 text-center">Register Now</h1>
+
+            <div class="mb-4">
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Name</label>
+                <input type="text" id="name" formControlName="name"
+                    class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Enter your name" />
+                    @if(registerForm.get('name')?.errors &&( registerForm.get('name')?.touched || registerForm.get('name')?.dirty)){
+                        <div class="border-solid border-2 border-red-700 p-2 mt-3 rounded-lg text-red-700">
+                            @if(registerForm.get('name')?.getError('required')){
+                                <p>Name field can't be empty</p>
+                            } 
+                            @else if (registerForm.get('name')?.getError('minlength')) {
+                                <p>Name minimum character length is 3</p>
+                            }
+                            @else if (registerForm.get('name')?.getError('maxlength')) {
+                                <p>Name maximum character length is 50</p>
+                            }
+                        </div>
+                    }
+            </div>
+
+            <div class="mb-4">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
+                <input type="email" id="email" formControlName="email"
+                    class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Enter your email" />
+                    @if(registerForm.get('email')?.errors &&( registerForm.get('email')?.touched || registerForm.get('email')?.dirty)){
+                        <div class="border-solid border-2 border-red-700 p-2 mt-3 rounded-lg text-red-700">
+                            @if(registerForm.get('email')?.getError('required')){
+                                <p>Email field can't be empty</p>
+                            } 
+                            @else if (registerForm.get('email')?.getError('email')) {
+                                <p>Email format is not valid</p>
+                            }
+                        </div>
+                    }
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
+                <input type="password" id="password" formControlName="password"
+                    class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Enter your password" />
+                    @if(registerForm.get('password')?.errors &&( registerForm.get('password')?.touched || registerForm.get('password')?.dirty)){
+                        <div class="border-solid border-2 border-red-700 p-2 mt-3 rounded-lg text-red-700">
+                            @if(registerForm.get('password')?.getError('required')){
+                                <p>Password field can't be empty</p>
+                            } 
+                            @else if (registerForm.get('password')?.getError('minlength')) {
+                                <p>Password should be 6 characters or more</p>
+                            }
+                        </div>
+                    }
+            </div>
+            <div class="mb-4">
+                <label for="rePassword" class="block mb-2 text-sm font-medium text-gray-900">Confirm Password</label>
+                <input type="password" id="rePassword" formControlName="rePassword"
+                    class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Confirm your password" />
+                    @if(registerForm.get('rePassword')?.errors &&( registerForm.get('rePassword')?.touched || registerForm.get('rePassword')?.dirty)){
+                        <div class="border-solid border-2 border-red-700 p-2 mt-3 rounded-lg text-red-700">
+                            @if(registerForm.get('rePassword')?.getError('required')){
+                                <p>Confirm Password field can't be empty</p>
+                            }
+                        </div>
+                    }
+            </div>
+
+            <div class="mb-4">
+                <label for="dateOfBirth" class="block mb-2 text-sm font-medium text-gray-900">Birth Date</label>
+                <input id="dateOfBirth" type="date" formControlName="dateOfBirth"
+                    class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+                    @if(registerForm.get('dateOfBirth')?.errors &&( registerForm.get('dateOfBirth')?.touched || registerForm.get('dateOfBirth')?.dirty)){
+                        <div class="border-solid border-2 border-red-700 p-2 mt-3 rounded-lg text-red-700">
+                            @if(registerForm.get('dateOfBirth')?.getError('required')){
+                                <p>Date of Birth field can't be empty</p>
+                            }
+                        </div>
+                    }
+            </div>
+
+            <fieldset class="mb-5">
+                <legend class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Gender
+                </legend>
+                <div class="flex gap-6">
+                    <div class="flex items-center">
+                        <input id="gender-male" formControlName="gender" type="radio" value="male" class="mr-2" />
+                        <label for="gender-male" class="block text-sm font-medium text-gray-900">Male</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="gender-female" formControlName="gender" type="radio" value="female" class="mr-2" />
+                        <label for="gender-female" class="block text-sm font-medium text-gray-900">Female</label>
+                    </div>
+                </div>         
+                @if(registerForm.get('gender')?.errors &&( registerForm.get('gender')?.touched || registerForm.get('gender')?.dirty)){
+                    <div class="border-solid border-2 border-red-700 p-2 mt-3 rounded-lg text-red-700">
+                        @if(registerForm.get('gender')?.getError('required')){
+                            <p>Gender field can't be empty</p>
+                        }
+                    </div>
+                }
+            </fieldset>
+
+            <button type="submit"
+                class="w-full bg-blue-600 text-white text-sm font-medium rounded-lg px-5 py-2.5 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300">
+                Sign Up
+            </button>
+        </form>
+    </section>
+</div>

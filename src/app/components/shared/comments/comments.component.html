@@ -1,0 +1,35 @@
+<div class="max-h-[200px] overflow-y-auto">
+    @for (comment of CommentsList; track comment._id) {
+    <div class="bg-gray-100 p-4 my-4 shadow-md rounded-lg border">
+        <div class="flex items-center gap-3 mb-2">
+            @if (comment.commentCreator.photo) {
+            <img [src]="comment.commentCreator.photo" alt="Profile Picture" class="rounded-full w-10 h-10" />
+            }
+            @else if (!comment.commentCreator.photo){
+            <img src="./assets/images/profile.png" alt="Profile Picture" class="rounded-full w-10 h-10" />
+            }
+            <h5 class="font-semibold">{{comment.commentCreator.name}}</h5>
+            <span class="text-gray-600">{{comment.createdAt | date}}</span>
+        </div>
+        <p class="text-gray-600">{{comment.content}}</p>
+    </div>
+    }
+</div>
+
+<form [formGroup]="CommentForm" (ngSubmit)="createComment()">
+    <label for="comment" class="sr-only">Your comment</label>
+    <div class="flex items-center px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-700">
+        <textarea formControlName="content" id="comment" rows="1"
+            class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300"
+            placeholder="Your comment."></textarea>
+        <button type="submit"
+            class="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600">
+            <svg class="w-5 h-5 rotate-90 rtl:-rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor" viewBox="0 0 18 20">
+                <path
+                    d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
+            </svg>
+            <span class="sr-only">Send comment</span>
+        </button>
+    </div>
+</form>
